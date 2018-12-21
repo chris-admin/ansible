@@ -16,5 +16,8 @@ cat id_rsa.pub > authorized_keys
 
 # Basics
 
-Run script on localhost 
+Run script on localhost:
 ansible all -i localhost, -m shell -a '/bin/echo hello word'
+
+Run a playbook:
+ansible-playbook -i localhost, setup_http.yaml
