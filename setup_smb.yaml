@@ -8,7 +8,7 @@
       state: present
   - name: Ensure the Samba service is enabled and running
     service:
-      name: samba
+      name: smbd
       state: started
       enabled: True
     become: True
