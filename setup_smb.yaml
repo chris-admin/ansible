@@ -12,8 +12,28 @@
       state: started
       enabled: True
     become: True
-   - blockinfile: |
-       dest=/etc/network/interfaces backup=yes
-       content="iface eth0 inet static
-         address 192.168.0.1
-         netmask 255.255.255.0"
+  - name: create shared folder
+    file:
+      path: /share
+      state: directory
+  - name: create group
+    group:
+      name: sambausers
+      state: present
+  - name: change ownership
+    file:
+      path: /share
+      owner: root
+      group: sambausers
+      mode: 0770
+  - name: writing example smb share
+    blockinfile:
+      dest: /etc/samba/smb.conf
+      block: |
+        [sambashare]
+            comment = Samba
+            path = /share
+            writeable = yes
+            browsable = yes
+            valid users = @sambausers
+      backup: yes
