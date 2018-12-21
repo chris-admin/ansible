@@ -12,6 +12,8 @@
       state: started
       enabled: True
     become: True
-  - lineinfile:
-      path: /etc/samba/smb.conf
-      line: '192.168.1.99 foo.lab.net foo'
+   - blockinfile: |
+       dest=/etc/network/interfaces backup=yes
+       content="iface eth0 inet static
+         address 192.168.0.1
+         netmask 255.255.255.0"
