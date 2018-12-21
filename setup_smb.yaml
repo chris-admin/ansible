@@ -12,3 +12,6 @@
       state: started
       enabled: True
     become: True
+  - lineinfile:
+      path: /etc/samba/smb.conf
+      line: '192.168.1.99 foo.lab.net foo'
